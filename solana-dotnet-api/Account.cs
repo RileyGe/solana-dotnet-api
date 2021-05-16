@@ -1,39 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using Org.BouncyCastle.Security;
 
 namespace Solana
 {
     public class Account
     {
-        private Nacl.SignKeyPair pair;
+        //private Nacl.SignKeyPair pair;
+        private byte[] secretKey;
+        private byte[] publicKey;
         public Account(byte[] secretKey = null)
         {
             if(secretKey is null)
             {
                 secretKey = new byte[64];
-                Nacl.TweetNaCl.RandomBytes(secretKey);
+                (new SecureRandom()).NextBytes(secretKey);
+                //Nacl.TweetNaCl.RandomBytes(secretKey);
             }
             if(secretKey.Length != 64)
             {
                 throw new ArgumentException("bad secret key size");
             }
-            var pk = secretKey.Skip(32).ToArray();
-            pair = new Nacl.SignKeyPair(pk, secretKey);            
+            publicKey = secretKey.Skip(32).ToArray();
+            this.secretKey = secretKey;            
         }
         public PublicKey PublicKey
         {
             get
             {
-                return new PublicKey(pair.PublicKey);
+                return new PublicKey(publicKey);
             }
         }
         public byte[] SecretKey
         {
             get
             {
-                return pair.SecretKey;
+                return secretKey;
             }
         }
     }

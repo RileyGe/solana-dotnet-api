@@ -12,8 +12,4 @@
     <PackageReference Include="NokitaKaze.Base58Check" Version="0.4.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TweetNaClCore\TweetNaClCore.csproj" />
-  </ItemGroup>
-
 </Project>
