@@ -9,7 +9,8 @@ namespace examples
         static void Main(string[] args)
         {
             //CreateAccount.Main(args); return;
-            RequestAirdrop.Main(args); return;
+            //RequestAirdrop.Main(args); return;
+            Transfer.Main(args); return;
         }
     }
 }
